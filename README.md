@@ -9,6 +9,11 @@
 	Client:(custom attirubute validation:[EmailAddress], IValidatableObject)
 	
 # Milestone3
-Role("admin")
+
+email:admin@gmail.com
+password:qwerty
+
+user:b.tokzhan24@gmail.com
+pass:qwerty
 
 ## Done by CSSE-1701 Bazarbayeva Tokzhan
