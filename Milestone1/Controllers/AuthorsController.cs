@@ -11,7 +11,7 @@ using Milestone1.Models;
 
 namespace Milestone1.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin,moderator,user")]
     public class AuthorsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -20,17 +20,7 @@ namespace Milestone1.Controllers
         {
             _context = context;
         }
-        // [AcceptVerbs("Get", "Post")]
-        [HttpGet("VerifyName")]
-        public IActionResult VerifyName(string name)
-        {
-            if (_context.Authors.Any(x => x.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)))
-            {
-                return Json($"Name {name} is already in use.");
-            }
 
-            return Json(true);
-        }
         // GET: Authors
         public async Task<IActionResult> Index()
         {
@@ -66,7 +56,7 @@ namespace Milestone1.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Surname,year,Address,phoneNumber,CreationDateBook")] Author author)
+        public async Task<IActionResult> Create([Bind("Id,Poster,Name,Surname,year,Address,phoneNumber")] Author author)
         {
             if (ModelState.IsValid)
             {
@@ -98,7 +88,7 @@ namespace Milestone1.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Surname,year,Address,phoneNumber,CreationDateBook")] Author author)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Poster,Name,Surname,year,Address,phoneNumber")] Author author)
         {
             if (id != author.Id)
             {

@@ -11,8 +11,7 @@ using Milestone1.Models;
 
 namespace Milestone1.Controllers
 {
-
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin,moderator,user")]
     public class BooksController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -51,16 +50,16 @@ namespace Milestone1.Controllers
         // GET: Books/Create
         public IActionResult Create()
         {
-            ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "Id");
+            ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "Email");
             return View();
         }
 
         // POST: Books/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Type,ClientId")] Book book)
+        public async Task<IActionResult> Create([Bind("Id,Title,Type,Poster,Description,ClientId")] Book book)
         {
             if (ModelState.IsValid)
             {
@@ -68,7 +67,7 @@ namespace Milestone1.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "Id", book.ClientId);
+            ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "Email", book.ClientId);
             return View(book);
         }
 
@@ -85,16 +84,16 @@ namespace Milestone1.Controllers
             {
                 return NotFound();
             }
-            ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "Id", book.ClientId);
+            ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "Email", book.ClientId);
             return View(book);
         }
 
         // POST: Books/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Type,ClientId")] Book book)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Type,Poster,Description,ClientId")] Book book)
         {
             if (id != book.Id)
             {
@@ -121,7 +120,7 @@ namespace Milestone1.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "Id", book.ClientId);
+            ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "Email", book.ClientId);
             return View(book);
         }
 
@@ -158,6 +157,14 @@ namespace Milestone1.Controllers
         private bool BookExists(int id)
         {
             return _context.Books.Any(e => e.Id == id);
+        }
+        public async Task<IActionResult> Search(string text)
+        {
+            text = text.ToLower();
+            var searchedMovies = await _context.Books.Where(movie => movie.Title.ToLower().Contains(text)
+                                            || movie.Type.ToLower().Contains(text))
+                                        .ToListAsync();
+            return View("Index", searchedMovies);
         }
     }
 }

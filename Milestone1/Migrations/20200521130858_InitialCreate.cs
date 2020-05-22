@@ -54,12 +54,12 @@ namespace Milestone1.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    Poster = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: false),
                     Surname = table.Column<string>(nullable: false),
                     year = table.Column<DateTime>(nullable: false),
                     Address = table.Column<string>(nullable: false),
-                    phoneNumber = table.Column<int>(nullable: false),
-                    CreationDateBook = table.Column<DateTime>(nullable: false)
+                    phoneNumber = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -195,6 +195,8 @@ namespace Milestone1.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Title = table.Column<string>(nullable: false),
                     Type = table.Column<string>(nullable: false),
+                    Poster = table.Column<string>(nullable: false),
+                    Description = table.Column<string>(nullable: false),
                     ClientId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>

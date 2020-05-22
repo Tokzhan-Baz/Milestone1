@@ -14,12 +14,17 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
+                <label asp-for="Poster" class="control-label"></label>
+                <input asp-for="Poster" class="form-control" />
+                <span asp-validation-for="Poster" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Surname"  id="NameInput"class="control-label"></label>
+                <label asp-for="Surname" class="control-label"></label>
                 <input asp-for="Surname" class="form-control" />
                 <span asp-validation-for="Surname" class="text-danger"></span>
             </div>
@@ -39,11 +44,6 @@
                 <span asp-validation-for="phoneNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CreationDateBook" class="control-label"></label>
-                <input asp-for="CreationDateBook" class="form-control" />
-                <span asp-validation-for="CreationDateBook" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
@@ -57,22 +57,3 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
-
-<script>
-$("#form").validate({
-        rules: {
-            email: {
-                required: true,
-                email: true,
-                remote: {
-                    url: "Authors/VerifyName",
-                    type: "post",
-                    data: {
-                        email: function () {
-                            return $("#NameInput").val();
-                        }
-                    }
-                }
-            }
-        }
-    });</script>

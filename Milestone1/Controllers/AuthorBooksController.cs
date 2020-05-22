@@ -11,7 +11,7 @@ using Milestone1.Models;
 
 namespace Milestone1.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin,moderator")]
     public class AuthorBooksController : Controller
     {
         private readonly ApplicationDbContext _context;

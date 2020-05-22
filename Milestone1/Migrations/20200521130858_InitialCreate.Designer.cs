@@ -9,7 +9,7 @@ using Milestone1.Data;
 namespace Milestone1.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200509043551_InitialCreate")]
+    [Migration("20200521130858_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -156,10 +156,11 @@ namespace Milestone1.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("CreationDateBook")
+                    b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Poster")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -201,6 +202,14 @@ namespace Milestone1.Migrations
 
                     b.Property<int>("ClientId")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Poster")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -415,7 +424,7 @@ namespace Milestone1.Migrations
             modelBuilder.Entity("Milestone1.Models.BookNumbers", b =>
                 {
                     b.HasOne("Milestone1.Models.Book", "Book")
-                        .WithOne("CarNumber")
+                        .WithOne("BookNumber")
                         .HasForeignKey("Milestone1.Models.BookNumbers", "BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

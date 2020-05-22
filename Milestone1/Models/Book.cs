@@ -13,14 +13,21 @@ namespace Milestone1.Models
         [Required]
         public string Title { get; set; }
         [Required]
+        [Display(Name = "Genre")]
         public string Type { get; set; }
+        [Required]
+        [Display(Name = "Photo")]
+        public string Poster { get; set; }
+
+        [Required]
+        public string Description { get; set; }
 
         //One-to-Many
         public int ClientId { get; set; }
         public Client Client { get; set; }
 
         //One-to-One
-        public BookNumbers CarNumber { get; set; }
+        public BookNumbers BookNumber { get; set; }
 
         //Many-to-Many
         public IList<AuthorBooks> AuthorBooks { get; set; }

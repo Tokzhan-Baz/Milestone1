@@ -17,10 +17,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav mr-auto" sec:authorize="isAnonymous()">
-                <li class="nav-item">
-                    <a class="nav-link" href="/">Main</a>
-                </li>
-                <li class="nav-item">
+               
+                <li class="nav-item" >
                     @Html.ActionLink("Clients", "Index", "Clients", null, new { @class = "nav-link" })
                 </li>
                 <li class="nav-item">
@@ -41,14 +39,33 @@
                 <li class="nav-item">
                     @Html.ActionLink("Roles", "Index", "Roles", null, new { @class = "nav-link" })
                 </li>
-                <li class="nav-item">              
-                <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-controller="Account" asp-action="Register">registration</a>
-                </li>
             </ul>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link">@User.Identity.Name</a>
+                </li>
 
+            @if (User.Identity.IsAuthenticated)
+                    {
+                 <li class="nav-item">
+                        <form method="post" asp-controller="Account" asp-action="Logout">
+                            <input type="submit" class="btn btn-outline-secondary"value="log out" />
+                        </form>
+                 </li>
+
+                }
+                
+            else
+                {              
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Account" asp-action="Register">registration</a>
+                        </li>
+                   
+                }
+                </ul>
         </div>
 
     </nav>
