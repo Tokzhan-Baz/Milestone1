@@ -10,10 +10,9 @@
 	
 # Milestone3
 
-### adminemail:admin@gmail.com
-password:qwerty
 
-### user email:b.tokzhan24@gmail.com
+
+### admin email:b.tokzhan24@gmail.com
 pass:qwerty
 
 ## Done by CSSE-1701 Bazarbayeva Tokzhan
